@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">bboxapi</string>
+    <string name="APP_ID">your appId</string>
+    <string name="APP_SECRET">your appSecret</string>
+</resources>
