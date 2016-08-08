@@ -16,6 +16,7 @@
     <string-array name="arrays_userinterface">
         <item>Get volume</item>
         <item>Set volume</item>
+        <item>Display toast</item>
     </string-array>
 
     //////////////////////////////////////////////////

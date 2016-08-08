@@ -43,6 +43,12 @@ public class UserInterfaceFragment extends Fragment {
                         mFragmentTransaction.addToBackStack(null);
                         mFragmentTransaction.replace(R.id.container_userinterface_parameter, new UserInterfaceSetVolumeFragment()).commit();
                         break;
+                    case "Display toast":
+                        mFragmentManager = getFragmentManager();
+                        mFragmentTransaction = mFragmentManager.beginTransaction();
+                        mFragmentTransaction.addToBackStack(null);
+                        mFragmentTransaction.replace(R.id.container_userinterface_parameter, new UserInterfaceDisplayToast()).commit();
+                        break;
                     default:
                 }
             }

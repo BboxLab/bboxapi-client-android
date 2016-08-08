@@ -72,6 +72,8 @@ public interface IBbox {
 
     void startApp(String ip, String appId, String appSecret, String packageName, IBboxStartApplication iBboxStartApplication);
 
+    void startApp(String ip, String appId, String appSecret, String packageName, String deeplink, IBboxStartApplication iBboxStartApplication);
+
     void stopApp(String ip, String appId, String appSecret, String packageName, IBboxStopApplication iBboxStopApplication);
 
     void displayToast(final String ip, String appId, String appSecret,

@@ -898,6 +898,62 @@ public class Bbox implements IBbox {
         });
     }
 
+    @Override
+    public void startApp(final String ip, String appId, String appSecret,
+                         final String packageName, final String deeplink,
+                         final IBboxStartApplication iBboxStartApplication) {
+        getSessionId(ip, appId, appSecret, new IBboxGetSessionId() {
+            @Override
+            public void onResponse(String sessionId) {
+                String url = URL_START_APP +"/" + packageName;
+                RequestBody body = RequestBody.create(JSON, buildJsonRequestDeeplink(deeplink));
+                final Request request = new Request.Builder()
+                        .url(url.replace("@IP", ip))
+                        .header("x-sessionid", sessionId)
+                        .post(body)
+                        .build();
+                Log.d(TAG, request.toString());
+
+                Call call = mClient.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.i(TAG, "Start app failed before response");
+                        iBboxStartApplication.onFailure(call.request(), HttpURLConnection.HTTP_BAD_REQUEST);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.code() == HttpURLConnection.HTTP_NO_CONTENT) {
+                            Log.i(TAG, "Start app success");
+                            iBboxStartApplication.onResponse();
+                        } else {
+                            Log.i(TAG, "Start app failed "+response.code());
+                            iBboxStartApplication.onFailure(call.request(), response.code());
+                        }
+
+                        response.body().close();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Request request, int errorCode) {
+                iBboxStartApplication.onFailure(request, errorCode);
+            }
+        });
+    }
+
+    private String buildJsonRequestDeeplink(String deeplink) {
+        JSONObject jObject = new JSONObject();
+        try {
+            jObject.put("intent", deeplink);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jObject.toString();
+    }
+
     private String buildJsonRequestToast(String msg, String color, String duration, String x, String y) {
         JSONObject jObject = new JSONObject();
         try {

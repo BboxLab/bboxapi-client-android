@@ -30,6 +30,28 @@
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="intent : "
+                android:id="@+id/textView55"
+                android:textSize="15dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/app_start_deeplink"
+                android:layout_column="1"
+                android:ems="10"
+                android:inputType="text" />
+
+        </TableRow>
+
     </TableLayout>
     <Button
         android:layout_width="wrap_content"

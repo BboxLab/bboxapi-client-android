@@ -28,6 +28,8 @@ public class ApplicationStartAppFragment extends Fragment implements View.OnClic
     private Handler handler;
     private EditText packageNameEdit;
     private String packageName = " ";
+    private EditText deeplinkEdit;
+    private String deeplink = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class ApplicationStartAppFragment extends Fragment implements View.OnClic
         mButton = (Button) view.findViewById(R.id.try_startapp);
         mButton.setOnClickListener(this);
         packageNameEdit = (EditText) view.findViewById(R.id.app_start_packagename);
+        deeplinkEdit = (EditText) view.findViewById(R.id.app_start_deeplink);
 
         ctxt = getActivity().getApplicationContext();
         handler = new Handler();
@@ -50,32 +53,67 @@ public class ApplicationStartAppFragment extends Fragment implements View.OnClic
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
         String ip = sharedPref.getString("bboxip", "");
         packageName = packageNameEdit.getText().toString();
-        Bbox.getInstance().startApp(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
-                packageName,
-                new IBboxStartApplication() {
+        deeplink = deeplinkEdit.getText().toString();
 
-                    @Override
-                    public void onResponse() {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(ctxt, "Start app success", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
+        if(deeplink.isEmpty())
+        {
+            Bbox.getInstance().startApp(ip,
+                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
+                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                    packageName,
+                    new IBboxStartApplication() {
 
-                    @Override
-                    public void onFailure(Request request, int errorCode) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(ctxt, "Start app failed", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
+                        @Override
+                        public void onResponse() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ctxt, "Start app success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Request request, int errorCode) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ctxt, "Start app failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+        }
+        else{
+            Bbox.getInstance().startApp(ip,
+                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
+                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                    packageName,
+                    deeplink,
+                    new IBboxStartApplication() {
+
+                        @Override
+                        public void onResponse() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ctxt, "Start app success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Request request, int errorCode) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(ctxt, "Start app failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+        }
+
     }
 
 }
