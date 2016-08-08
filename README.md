@@ -2,7 +2,7 @@
 
 BboxApi Client mobile application template
 
-![logo](img/logo.png =600x)
+<img src="img/logo.png" width="400">
 
 <hr/>
 
@@ -19,7 +19,7 @@ https://github.com/BboxLab/bboxapi-client-android/blob/master/bboxapi/src/main/r
 
 The first page on BboxApi client is this one : 
 
-![addr](img/ipaddr.png =600x)
+<img src="img/ipaddr.png" width="400">
 
 You have to enter the Bbox Miami ip address in order to make the application work correctly. Fortunately you can launch an automatic search but be careful because this mechanism works with only ONE Bbox Miami on the LAN.
 
@@ -27,13 +27,13 @@ You have to enter the Bbox Miami ip address in order to make the application wor
 
 Your appId and appSecret will be displayed on this menu :
 
-![nav](img/navbar.png =600x)
+<img src="img/navbar.png" width="400">
 
 <hr/>
 
 If you want to see the x-sessionid created, you have to go to security menu :
 
-![nav](img/sessionid.png =600x)
+<img src="img/sessionid.png" width="400">
 
 ## License
 
