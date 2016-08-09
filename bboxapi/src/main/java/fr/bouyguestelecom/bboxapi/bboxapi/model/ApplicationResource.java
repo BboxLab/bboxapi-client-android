@@ -32,9 +32,9 @@ public class ApplicationResource {
 
     @Override
     public String toString() {
-        return "ApplicationResource{" +
-                "packageName='" + packageName + '\'' +
-                ", state='" + state + '\'' +
+        return "{" +
+                "\"packageName\": \"" + packageName + '\"' +
+                ", \"state\": \"" + state + '\"' +
                 '}';
     }
 }

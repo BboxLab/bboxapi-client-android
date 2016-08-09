@@ -32,9 +32,9 @@ public class MessageResource {
 
     @Override
     public String toString() {
-        return "MessageResource{" +
-                "appId='" + appId + '\'' +
-                ", message='" + message + '\'' +
+        return "{" +
+                "\"appId\": \"" + appId + '\"' +
+                ", \"message\": \"" + message + '\"' +
                 '}';
     }
 }
