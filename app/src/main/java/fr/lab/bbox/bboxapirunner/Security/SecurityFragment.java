@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxGetSessionId;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxGetSessionId;
 
 /**
  * Created by dinh on 01/07/16.
@@ -34,8 +34,8 @@ public class SecurityFragment extends Fragment {
         String ip = sharedPref.getString("bboxip", "");
 
         Bbox.getInstance().getSessionId(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 new IBboxGetSessionId() {
                     @Override
                     public void onResponse(final String sessionId) {

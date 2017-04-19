@@ -14,10 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxRegisterApp;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxRegisterApp;
 
 /**
  * Created by dinh on 01/07/16.
@@ -56,8 +56,8 @@ public class ApplicationRegisterFragment extends Fragment implements View.OnClic
         String ip = sharedPref.getString("bboxip", "");
         appName = appNameEdit.getText().toString();
         Bbox.getInstance().registerApp(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 appName,
                 new IBboxRegisterApp() {
 

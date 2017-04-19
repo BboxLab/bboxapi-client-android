@@ -15,17 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxApplication;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxMedia;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxMessage;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxRegisterApp;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxSubscribe;
-import fr.bouyguestelecom.bboxapi.bboxapi.model.ApplicationResource;
-import fr.bouyguestelecom.bboxapi.bboxapi.model.MediaResource;
-import fr.bouyguestelecom.bboxapi.bboxapi.model.MessageResource;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxApplication;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxMedia;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxMessage;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxRegisterApp;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxSubscribe;
+import tv.bouyguestelecom.fr.bboxapilibrary.model.ApplicationResource;
+import tv.bouyguestelecom.fr.bboxapilibrary.model.MediaResource;
+import tv.bouyguestelecom.fr.bboxapilibrary.model.MessageResource;
 
 /**
  * Created by dinh on 01/07/16.
@@ -72,24 +72,26 @@ public class NotificationSubscribeFragment extends Fragment implements View.OnCl
         ressource_id = ressourceEdit.getText().toString();
 
         Bbox.getInstance().registerApp(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 appName,
                 new IBboxRegisterApp() {
 
                     @Override
                     public void onResponse(final String registerApp) {
+
+
                         if (registerApp != null && !registerApp.isEmpty()) {
 
                             Log.i("notif", "ressource_id : " + ressource_id);
-
+                            Log.i("notif", "registerApp : " + registerApp);
                             // TODO : switch/case is better
 
-                            if(ressource_id.equalsIgnoreCase("media")){
+                            if (ressource_id.equalsIgnoreCase("media")) {
                                 // Subscribe ressource media
                                 Bbox.getInstance().subscribeNotification(ip,
-                                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                                        getResources().getString(R.string.APP_ID),
+                                        getResources().getString(R.string.APP_SECRET),
                                         registerApp,
                                         "Media",
                                         new IBboxSubscribe() {
@@ -121,6 +123,7 @@ public class NotificationSubscribeFragment extends Fragment implements View.OnCl
                                                             }
                                                         });
                                             }
+
                                             @Override
                                             public void onFailure(Request request, int errorCode) {
                                                 handler.post(new Runnable() {
@@ -132,13 +135,11 @@ public class NotificationSubscribeFragment extends Fragment implements View.OnCl
                                             }
                                         });
                                 // end media
-                            }
-
-                            else if(ressource_id.equalsIgnoreCase("application")){
+                            } else if (ressource_id.equalsIgnoreCase("application")) {
                                 // Subscribe ressource application
                                 Bbox.getInstance().subscribeNotification(ip,
-                                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                                        getResources().getString(R.string.APP_ID),
+                                        getResources().getString(R.string.APP_SECRET),
                                         registerApp,
                                         "Application",
                                         new IBboxSubscribe() {
@@ -170,6 +171,7 @@ public class NotificationSubscribeFragment extends Fragment implements View.OnCl
                                                             }
                                                         });
                                             }
+
                                             @Override
                                             public void onFailure(Request request, int errorCode) {
                                                 handler.post(new Runnable() {
@@ -181,18 +183,16 @@ public class NotificationSubscribeFragment extends Fragment implements View.OnCl
                                             }
                                         });
                                 // end application
-                            }
+                            } else if (ressource_id.contains("Message") || ressource_id.contains("message")) {
 
-                            else if(ressource_id.contains("Message") || ressource_id.contains("message")){
-
-                                if(ressource_id.contains("message")) {
+                                if (ressource_id.contains("message")) {
                                     ressource_id = ressource_id.replace("message", "Message");
                                 }
 
                                 // Subscribe ressource msg
                                 Bbox.getInstance().subscribeNotification(ip,
-                                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                                        getResources().getString(R.string.APP_ID),
+                                        getResources().getString(R.string.APP_SECRET),
                                         registerApp,
                                         ressource_id,
                                         new IBboxSubscribe() {
@@ -224,6 +224,56 @@ public class NotificationSubscribeFragment extends Fragment implements View.OnCl
                                                             }
                                                         });
                                             }
+
+                                            @Override
+                                            public void onFailure(Request request, int errorCode) {
+                                                handler.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(ctxt, "Notification failed", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        });
+                                // end msg
+                            } else {
+
+                                // Subscribe ressource msg
+                                Bbox.getInstance().subscribeNotification(ip,
+                                        getResources().getString(R.string.APP_ID),
+                                        getResources().getString(R.string.APP_SECRET),
+                                        registerApp,
+                                        ressource_id,
+                                        new IBboxSubscribe() {
+                                            @Override
+                                            public void onSubscribe() {
+
+                                                handler.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        channelid_subscribe.setText("websocket opened");
+                                                    }
+                                                });
+
+                                                Bbox.getInstance().addListener(ip,
+                                                        registerApp,
+                                                        new IBboxMessage() {
+                                                            @Override
+                                                            public void onNewMessage(final MessageResource message) {
+
+                                                                Log.i("notif", "new msg received");
+
+                                                                handler.post(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        Toast.makeText(ctxt, message.toString(), Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+
+                                                            }
+                                                        });
+                                            }
+
                                             @Override
                                             public void onFailure(Request request, int errorCode) {
                                                 handler.post(new Runnable() {
@@ -236,6 +286,8 @@ public class NotificationSubscribeFragment extends Fragment implements View.OnCl
                                         });
                                 // end msg
                             }
+
+
                         }
                     }
 

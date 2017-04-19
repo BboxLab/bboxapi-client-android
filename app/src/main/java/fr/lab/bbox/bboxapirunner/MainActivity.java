@@ -27,7 +27,7 @@ import fr.lab.bbox.bboxapirunner.Security.SecurityFragment;
 import fr.lab.bbox.bboxapirunner.UserInterface.UserInterfaceFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
@@ -53,10 +53,11 @@ public class MainActivity extends AppCompatActivity
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                InputMethodManager imm = (InputMethodManager)MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
             }
-        };;
+        };
+        ;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -72,9 +73,9 @@ public class MainActivity extends AppCompatActivity
 
         View header = navigationView.getHeaderView(0);
         TextView id = (TextView) header.findViewById(R.id.app_id);
-        id.setText("app_id : " + getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID));
+        id.setText("app_id : " + getResources().getString(R.string.APP_ID));
         TextView secret = (TextView) header.findViewById(R.id.app_secret);
-        secret.setText("app_secret : " + getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET));
+        secret.setText("app_secret : " + getResources().getString(R.string.APP_SECRET));
     }
 
     @Override
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
 
         // Handle navigation view item clicks here.
@@ -144,8 +145,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void BboxIpAddrDefault()
-    {
+    public void BboxIpAddrDefault() {
         String bboxip = "127.0.0.1";
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -153,8 +153,7 @@ public class MainActivity extends AppCompatActivity
         editor.commit();
     }
 
-    public void BboxIpAddrSave(View v)
-    {
+    public void BboxIpAddrSave(View v) {
         EditText bboxipedit = (EditText) findViewById(R.id.bboxip);
         String bboxip = bboxipedit.getText().toString();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

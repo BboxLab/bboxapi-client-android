@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxStartApplication;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxStartApplication;
 
 /**
  * Created by dinh on 01/07/16.
@@ -55,11 +55,10 @@ public class ApplicationStartAppFragment extends Fragment implements View.OnClic
         packageName = packageNameEdit.getText().toString();
         deeplink = deeplinkEdit.getText().toString();
 
-        if(deeplink.isEmpty())
-        {
+        if (deeplink.isEmpty()) {
             Bbox.getInstance().startApp(ip,
-                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                    getResources().getString(R.string.APP_ID),
+                    getResources().getString(R.string.APP_SECRET),
                     packageName,
                     new IBboxStartApplication() {
 
@@ -83,11 +82,10 @@ public class ApplicationStartAppFragment extends Fragment implements View.OnClic
                             });
                         }
                     });
-        }
-        else{
+        } else {
             Bbox.getInstance().startApp(ip,
-                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                    getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                    getResources().getString(R.string.APP_ID),
+                    getResources().getString(R.string.APP_SECRET),
                     packageName,
                     deeplink,
                     new IBboxStartApplication() {

@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxGetVolume;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxGetVolume;
 
 /**
  * Created by dinh on 01/07/16.
@@ -45,8 +45,8 @@ public class UserInterfaceGetVolumeFragment extends Fragment implements View.OnC
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
         String ip = sharedPref.getString("bboxip", "");
         Bbox.getInstance().getVolume(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 new IBboxGetVolume() {
                     @Override
                     public void onResponse(final String volume) {

@@ -21,26 +21,25 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxGetApplications;
-import fr.bouyguestelecom.bboxapi.bboxapi.model.Application;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxGetApplications;
+import tv.bouyguestelecom.fr.bboxapilibrary.model.Application;
 
 /**
  * Created by dinh on 01/07/16.
  */
 public class ApplicationGetAppInfoFragment extends Fragment implements View.OnClickListener {
 
+    ArrayList<String> listItems = new ArrayList<String>();
+    ArrayAdapter<String> adapter;
+    ListView list;
     private Button mButton;
     private EditText packageNameEdit;
     private String packageName = " ";
     private Context ctxt;
     private Handler handler;
-
-    ArrayList<String> listItems = new ArrayList<String>();
-    ArrayAdapter<String> adapter;
-    ListView list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,8 +69,8 @@ public class ApplicationGetAppInfoFragment extends Fragment implements View.OnCl
         String ip = sharedPref.getString("bboxip", "");
         packageName = packageNameEdit.getText().toString();
         Bbox.getInstance().getAppInfo(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 packageName,
                 new IBboxGetApplications() {
                     @Override
@@ -81,8 +80,7 @@ public class ApplicationGetAppInfoFragment extends Fragment implements View.OnCl
                             public void run() {
                                 Toast.makeText(ctxt, "Get app info success", Toast.LENGTH_SHORT).show();
 
-                                for(int i = 0 ; i < applications.size() ; i++)
-                                {
+                                for (int i = 0; i < applications.size(); i++) {
                                     listItems.add("appId : " + applications.get(i).getAppId() + "\n" +
                                             "appName : " + applications.get(i).getAppName() + "\n" +
                                             "appState : " + applications.get(i).getAppState() + "\n" +

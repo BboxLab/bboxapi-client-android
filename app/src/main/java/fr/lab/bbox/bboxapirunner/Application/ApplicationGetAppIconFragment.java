@@ -15,10 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxGetApplicationIcon;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxGetApplicationIcon;
 
 /**
  * Created by dinh on 01/07/16.
@@ -56,8 +56,8 @@ public class ApplicationGetAppIconFragment extends Fragment implements View.OnCl
         String ip = sharedPref.getString("bboxip", "");
         packageName = packageNameEdit.getText().toString();
         Bbox.getInstance().getAppIcon(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 packageName,
                 new IBboxGetApplicationIcon() {
 

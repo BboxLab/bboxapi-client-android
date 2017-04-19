@@ -8,12 +8,16 @@ BboxApi Client mobile application template
 
 ## Setup Android Studio
 
-Do not forget to set your own credentials (appId and appSecret) provided by Bouygues Telecom in order to build your APK in this file :
+Do not forget to set your own credentials (appId and appSecret in string.xml) provided by Bouygues Telecom in order to build your APK in this file :
 https://github.com/BboxLab/bboxapi-client-android/blob/master/bboxapi/src/main/res/values/strings.xml
 
 `BBOXAPI_APP_ID` and `BBOXAPI_APP_SECRET` are given by Bouygues Telecom. If you dont have these, here is following contact https://dev.bouyguestelecom.fr/dev/?page_id=51
 
 <hr/>
+
+## Bboxapi-library
+
+Get the last update of Bboxapi-library at https://github.com/BboxLab/bboxapi-library
 
 ## Setup at first launch
 
@@ -37,6 +41,6 @@ If you want to see the x-sessionid created, you have to go to security menu :
 
 ## License
 
-The MIT License (MIT) Copyright (c) 2016 BboxLab
+The MIT License (MIT) Copyright (c) 2017 BboxLab
 
 

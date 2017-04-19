@@ -20,23 +20,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxGetOpenedChannels;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxGetOpenedChannels;
 
 /**
  * Created by dinh on 01/07/16.
  */
 public class NotificationGetOpenedChannelsFragment extends Fragment implements View.OnClickListener {
 
-    private Button mButton;
-    private Context ctxt;
-    private Handler handler;
-
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     ListView list;
+    private Button mButton;
+    private Context ctxt;
+    private Handler handler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,8 +64,8 @@ public class NotificationGetOpenedChannelsFragment extends Fragment implements V
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
         String ip = sharedPref.getString("bboxip", "");
         Bbox.getInstance().getOpenedChannels(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 new IBboxGetOpenedChannels() {
 
                     @Override
@@ -76,8 +75,7 @@ public class NotificationGetOpenedChannelsFragment extends Fragment implements V
                             public void run() {
                                 Toast.makeText(ctxt, "Get notification channel success", Toast.LENGTH_SHORT).show();
 
-                                for(int i = 0 ; i < channels.size() ; i++)
-                                {
+                                for (int i = 0; i < channels.size(); i++) {
                                     listItems.add(channels.get(i));
                                 }
 

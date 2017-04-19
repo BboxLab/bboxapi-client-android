@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxSetVolume;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxSetVolume;
 
 /**
  * Created by dinh on 01/07/16.
@@ -50,8 +50,8 @@ public class UserInterfaceSetVolumeFragment extends Fragment implements View.OnC
         String ip = sharedPref.getString("bboxip", "");
         volume = volumedit.getText().toString();
         Bbox.getInstance().setVolume(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 volume,
                 new IBboxSetVolume() {
                     @Override

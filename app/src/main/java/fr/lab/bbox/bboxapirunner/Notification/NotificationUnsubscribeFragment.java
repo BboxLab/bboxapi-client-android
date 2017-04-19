@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxGetOpenedChannels;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxUnsubscribe;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxGetOpenedChannels;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxUnsubscribe;
 
 /**
  * Created by dinh on 01/07/16.
@@ -43,63 +43,62 @@ public class NotificationUnsubscribeFragment extends Fragment {
 
         mButtonBis = (Button) view.findViewById(R.id.try_unsubscribeall);
         mButtonBis.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(final View v) {
+            @Override
+            public void onClick(final View v) {
 
-               final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
-               final String ip = sharedPref.getString("bboxip", "");
+                final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
+                final String ip = sharedPref.getString("bboxip", "");
 
-               Bbox.getInstance().getOpenedChannels(ip,
-                       getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                       getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
-                       new IBboxGetOpenedChannels() {
+                Bbox.getInstance().getOpenedChannels(ip,
+                        getResources().getString(R.string.APP_ID),
+                        getResources().getString(R.string.APP_SECRET),
+                        new IBboxGetOpenedChannels() {
 
-                           @Override
-                           public void onResponse(final List<String> channels) {
-                               for(final String str:channels)
-                               {
-                                   Bbox.getInstance().unsubscribeNotification(ip,
-                                           getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                                           getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
-                                           str,
-                                           new IBboxUnsubscribe() {
-                                               @Override
-                                               public void onUnsubscribe() {
-                                                   handler.post(new Runnable() {
-                                                       @Override
-                                                       public void run() {
-                                                           Toast.makeText(ctxt, "Channels being removed", Toast.LENGTH_SHORT).show();
-                                                       }
-                                                   });
+                            @Override
+                            public void onResponse(final List<String> channels) {
+                                for (final String str : channels) {
+                                    Bbox.getInstance().unsubscribeNotification(ip,
+                                            getResources().getString(R.string.APP_ID),
+                                            getResources().getString(R.string.APP_SECRET),
+                                            str,
+                                            new IBboxUnsubscribe() {
+                                                @Override
+                                                public void onUnsubscribe() {
+                                                    handler.post(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(ctxt, "Channels being removed", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
 
-                                                   String appId = str.substring(0, str.lastIndexOf("-"));
-                                                   Log.d("notif", "appId : " + appId);
+                                                    String appId = str.substring(0, str.lastIndexOf("-"));
+                                                    Log.d("notif", "appId : " + appId);
 
-                                                   Bbox.getInstance().removeMediaListener(ip, appId, str);
-                                                   Bbox.getInstance().removeAppListener(ip, appId, str);
-                                                   Bbox.getInstance().removeMsgListener(ip, appId, str);
-                                               }
+                                                    Bbox.getInstance().removeMediaListener(ip, appId, str);
+                                                    Bbox.getInstance().removeAppListener(ip, appId, str);
+                                                    Bbox.getInstance().removeMsgListener(ip, appId, str);
+                                                }
 
-                                               @Override
-                                               public void onFailure(Request request, int errorCode) {
-                                                   handler.post(new Runnable() {
-                                                       @Override
-                                                       public void run() {
-                                                           Toast.makeText(ctxt, "unsubscribe failed", Toast.LENGTH_SHORT).show();
-                                                       }
-                                                   });
-                                               }
-                                           });
-                               }
+                                                @Override
+                                                public void onFailure(Request request, int errorCode) {
+                                                    handler.post(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(ctxt, "unsubscribe failed", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                }
 
-                           }
+                            }
 
-                           @Override
-                           public void onFailure(Request request, int errorCode) {
-                           }
-                       });
+                            @Override
+                            public void onFailure(Request request, int errorCode) {
+                            }
+                        });
 
-           }
+            }
         });
 
         mButton = (Button) view.findViewById(R.id.try_unsubscribe);
@@ -112,8 +111,8 @@ public class NotificationUnsubscribeFragment extends Fragment {
                 channelId = channelIdEdit.getText().toString();
 
                 Bbox.getInstance().unsubscribeNotification(ip,
-                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                        getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                        getResources().getString(R.string.APP_ID),
+                        getResources().getString(R.string.APP_SECRET),
                         channelId,
                         new IBboxUnsubscribe() {
                             @Override

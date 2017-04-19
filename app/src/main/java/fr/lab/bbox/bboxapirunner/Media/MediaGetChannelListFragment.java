@@ -20,25 +20,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.Bbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.callback.IBboxGetChannelListOnBox;
-import fr.bouyguestelecom.bboxapi.bboxapi.model.ChannelLight;
-import fr.bouyguestelecom.bboxapi.bboxapi.ws.WebSocket;
 import fr.lab.bbox.bboxapirunner.R;
 import okhttp3.Request;
+import tv.bouyguestelecom.fr.bboxapilibrary.Bbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.callback.IBboxGetChannelListOnBox;
+import tv.bouyguestelecom.fr.bboxapilibrary.model.ChannelLight;
 
 /**
  * Created by dinh on 01/07/16.
  */
 public class MediaGetChannelListFragment extends Fragment implements View.OnClickListener {
 
-    private Button mButton;
-    private Context ctxt;
-    private Handler handler;
-
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     ListView list;
+    private Button mButton;
+    private Context ctxt;
+    private Handler handler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,8 +64,8 @@ public class MediaGetChannelListFragment extends Fragment implements View.OnClic
         final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
         String ip = sharedPref.getString("bboxip", "");
         Bbox.getInstance().getChannelListOnBox(ip,
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_ID),
-                getResources().getString(fr.bouyguestelecom.bboxapi.R.string.APP_SECRET),
+                getResources().getString(R.string.APP_ID),
+                getResources().getString(R.string.APP_SECRET),
                 new IBboxGetChannelListOnBox() {
 
                     @Override
@@ -77,8 +75,7 @@ public class MediaGetChannelListFragment extends Fragment implements View.OnClic
                             public void run() {
                                 Toast.makeText(ctxt, "Get TV channel list success", Toast.LENGTH_SHORT).show();
 
-                                for(int i = 0 ; i < channels.size() ; i++)
-                                {
+                                for (int i = 0; i < channels.size(); i++) {
                                     listItems.add("mediaTitle : " + channels.get(i).getMediaTitle() + "\n" +
                                             "mediaState : " + channels.get(i).getMediaState() + "\n" +
                                             "positionId : " + channels.get(i).getPositionId()

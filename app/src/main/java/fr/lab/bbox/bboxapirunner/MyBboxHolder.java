@@ -8,8 +8,9 @@ import android.preference.PreferenceManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fr.bouyguestelecom.bboxapi.bboxapi.MyBbox;
-import fr.bouyguestelecom.bboxapi.bboxapi.MyBboxManager;
+import tv.bouyguestelecom.fr.bboxapilibrary.MyBbox;
+import tv.bouyguestelecom.fr.bboxapilibrary.MyBboxManager;
+
 
 public class MyBboxHolder {
 
@@ -23,13 +24,18 @@ public class MyBboxHolder {
     /**
      * Singleton: private constructor. Instance must be retrieved with getInstance method
      */
-    private MyBboxHolder() {}
+    private MyBboxHolder() {
+    }
+
+    public static MyBboxHolder getInstance() {
+        return mInstance;
+    }
 
     public MyBboxManager getBboxManager() {
         return bboxManager;
     }
 
-    public void bboxSearch(final Context context, final Activity activity){
+    public void bboxSearch(final Context context, final Activity activity) {
 
         bboxManager.startLookingForBbox(context, new MyBboxManager.CallbackBboxFound() {
             @Override
@@ -81,10 +87,6 @@ public class MyBboxHolder {
             throw new MyBboxNotFoundException();
         }
         return mBbox;
-    }
-
-    public static MyBboxHolder getInstance() {
-        return mInstance;
     }
 
     public interface IBboxSearchCallback {
