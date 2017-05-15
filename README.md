@@ -39,6 +39,11 @@ If you want to see the x-sessionid created, you have to go to security menu :
 
 <img src="img/sessionid.png" width="400">
 
+## Mandatory for GetNotification
+
+Download https://github.com/BboxLab/bboxapi-simple-room and start it in your Bbox miami
+
+
 ## License
 
 The MIT License (MIT) Copyright (c) 2017 BboxLab

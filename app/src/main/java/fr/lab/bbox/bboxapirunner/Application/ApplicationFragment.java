@@ -67,6 +67,12 @@ public class ApplicationFragment extends Fragment {
                         mFragmentTransaction.addToBackStack(null);
                         mFragmentTransaction.replace(R.id.container_app_parameter, new ApplicationRegisterFragment()).commit();
                         break;
+                    case "Start Install":
+                        mFragmentManager = getFragmentManager();
+                        mFragmentTransaction = mFragmentManager.beginTransaction();
+                        mFragmentTransaction.addToBackStack(null);
+                        mFragmentTransaction.replace(R.id.container_app_parameter, new ApplicationStartInstallFragment()).commit();
+                        break;
                     default:
                 }
             }

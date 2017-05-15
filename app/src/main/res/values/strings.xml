@@ -43,6 +43,8 @@
         <item>Start application</item>
         <item>Stop application</item>
         <item>Register (for notification)</item>
+        <item>Start Install</item>
+
     </string-array>
 
     //////////////////////////////////////////////////
@@ -55,6 +57,7 @@
         <item>Get opened channels</item>
         <item>Send message to room</item>
         <item>Send message to a specific channelId</item>
+        <item>Create Notification</item>
     </string-array>
 
 </resources>

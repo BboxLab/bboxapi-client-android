@@ -24,6 +24,9 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_notification, container, false);
 
+
+
+
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner_notif);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -60,6 +63,12 @@ public class NotificationFragment extends Fragment {
                         mFragmentTransaction = mFragmentManager.beginTransaction();
                         mFragmentTransaction.addToBackStack(null);
                         mFragmentTransaction.replace(R.id.container_notif_parameter, new NotificationSendMsgToChannelIdFragment()).commit();
+                        break;
+                    case "Create Notification":
+                        mFragmentManager = getFragmentManager();
+                        mFragmentTransaction = mFragmentManager.beginTransaction();
+                        mFragmentTransaction.addToBackStack(null);
+                        mFragmentTransaction.replace(R.id.container_notif_parameter, new NotificationCreateNotificationFragment()).commit();
                         break;
                     default:
                 }
