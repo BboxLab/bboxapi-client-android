@@ -5,33 +5,27 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import fr.lab.bbox.bboxapirunner.Application.ApplicationFragment;
-import fr.lab.bbox.bboxapirunner.Media.MediaFragment;
-import fr.lab.bbox.bboxapirunner.Notification.NotificationFragment;
-import fr.lab.bbox.bboxapirunner.Security.SecurityFragment;
-import fr.lab.bbox.bboxapirunner.UserInterface.UserInterfaceFragment;
+import fr.lab.bbox.bboxapirunner.application.ApplicationFragment;
+import fr.lab.bbox.bboxapirunner.media.MediaFragment;
+import fr.lab.bbox.bboxapirunner.notification.NotificationFragment;
+import fr.lab.bbox.bboxapirunner.security.SecurityFragment;
+import fr.lab.bbox.bboxapirunner.ui.UserInterfaceFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
-    private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
 
     @Override
@@ -64,8 +58,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.replace(R.id.container, new BboxFragment()).commit();
 
@@ -73,24 +66,14 @@ public class MainActivity extends AppCompatActivity
 
         View header = navigationView.getHeaderView(0);
         TextView id = (TextView) header.findViewById(R.id.app_id);
-        id.setText("app_id : " + getResources().getString(R.string.APP_ID));
+        id.setText("app_id : " + getString(R.string.APP_ID));
         TextView secret = (TextView) header.findViewById(R.id.app_secret);
-        secret.setText("app_secret : " + getResources().getString(R.string.APP_SECRET));
+        secret.setText("app_secret : " + getString(R.string.APP_SECRET));
     }
 
     @Override
     public void onBackPressed() {
-
         finish();
-
-        /*
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-        */
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -99,46 +82,37 @@ public class MainActivity extends AppCompatActivity
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
 
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
-        if (id == R.id.nav_security) {
-            mFragmentManager = getSupportFragmentManager();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.replace(R.id.container, new SecurityFragment()).commit();
-        } else if (id == R.id.nav_application) {
-            mFragmentManager = getSupportFragmentManager();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.replace(R.id.container, new ApplicationFragment()).commit();
-        } else if (id == R.id.nav_media) {
-            mFragmentManager = getSupportFragmentManager();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.replace(R.id.container, new MediaFragment()).commit();
-        } else if (id == R.id.nav_userinterface) {
-            mFragmentManager = getSupportFragmentManager();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.replace(R.id.container, new UserInterfaceFragment()).commit();
-        } else if (id == R.id.nav_notification) {
-            mFragmentManager = getSupportFragmentManager();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.replace(R.id.container, new NotificationFragment()).commit();
-        } else if (id == R.id.nav_bbox) {
-            mFragmentManager = getSupportFragmentManager();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            mFragmentTransaction.addToBackStack(null);
-            mFragmentTransaction.replace(R.id.container, new BboxFragment()).commit();
+        switch (item.getItemId()) {
+            case R.id.nav_security:
+                mFragmentTransaction.replace(R.id.container, new SecurityFragment());
+                break;
+
+            case R.id.nav_application:
+                mFragmentTransaction.replace(R.id.container, new ApplicationFragment());
+                break;
+
+            case R.id.nav_media:
+                mFragmentTransaction.replace(R.id.container, new MediaFragment());
+                break;
+
+            case R.id.nav_userinterface:
+                mFragmentTransaction.replace(R.id.container, new UserInterfaceFragment());
+                break;
+
+            case R.id.nav_notification:
+                mFragmentTransaction.replace(R.id.container, new NotificationFragment());
+                break;
+
+            case R.id.nav_bbox:
+                mFragmentTransaction.replace(R.id.container, new BboxFragment());
+                break;
         }
+
+        mFragmentTransaction.addToBackStack(null);
+        mFragmentTransaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -151,25 +125,5 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("bboxip", bboxip);
         editor.commit();
-    }
-
-    public void BboxIpAddrSave(View v) {
-        EditText bboxipedit = (EditText) findViewById(R.id.bboxip);
-        String bboxip = bboxipedit.getText().toString();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("bboxip", bboxip);
-        editor.commit();
-
-        TextView currentip = (TextView) findViewById(R.id.currentip);
-        currentip.setText(bboxip);
-
-        Log.i(TAG, "ip address : " + bboxip);
-
-        Toast.makeText(this, "Bbox IP address saved", Toast.LENGTH_LONG).show();
-    }
-
-    public void AutoSearch(View v) throws MyBboxNotFoundException {
-        MyBboxHolder.getInstance().bboxSearch(getBaseContext(), MainActivity.this);
     }
 }
