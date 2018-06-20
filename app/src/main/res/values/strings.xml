@@ -1,15 +1,15 @@
 <resources>
 
 
-    <string name="APP_ID">124-101</string>
-    <string name="APP_SECRET">6709F2915C0C4846B7C5ED56D894D480</string>
+    <string name="APP_ID"></string>
+    <string name="APP_SECRET"></string>
 
     // APP
 
     <string name="app_name">BboxAPI Client</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer 2</string>
+    <string name="navigation_drawer_close">Close navigation drawer 2</string>
 
     <string name="action_settings">Settings</string>
 
